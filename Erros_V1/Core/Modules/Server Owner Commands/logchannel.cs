@@ -19,30 +19,35 @@ namespace Erros
             var x = ServerList.getServer(Context.Guild);
             if (type == null)
             {
-
+                EmbedBuilder e = Error.avb10();
+                await ReplyAsync("", false, e.Build());
             }
             else
             {
                 if (Context.Message.Author.Id != x.ServerOwnerID)
                 {
                     EmbedBuilder e = Error.avb03();
-                    await ReplyAsync("",false,e.Build());
+                    await ReplyAsync("", false, e.Build());
                 }
                 else
                 {
                     if (type.ToLower() == "set")
                     {
                         x.ServerLogChannel = $"{channel.Id}";
+                        ServerList.SaveServer();
                     }
-                    else if (type.ToLower() == "view") { }
-                    else if (type.ToLower() == "create") { }
+                    else if (type.ToLower() == "view")
+                    {
+                        EmbedBuilder e = Logs.avb10(Context.Guild);
+                        await ReplyAsync("", false, e.Build());
+                    }
                     else
                     {
-
+                        EmbedBuilder e = Error.avb10();
+                        await ReplyAsync("", false, e.Build());
                     }
                 }
             }
-            await ReplyAsync("done");
         }
     }
 }
