@@ -259,3 +259,9 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+/Erros_V1/Common/Configuration.cs
+/Erros_V1/Properties
+/Erros_V1/packages.config
+/Erros_V1/App.config
+/Erros_V1/Erros_V1.csproj
+/Erros_V1/CommandHandler.cs
