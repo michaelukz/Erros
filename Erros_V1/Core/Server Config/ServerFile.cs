@@ -19,6 +19,7 @@ namespace Erros
         public string ServerPrefix { get; set; }
         public string AutoRoleName { get; set; }
         public ulong AutoRoleID { get; set; }
+        public List<ulong> MutedUserIDs { get; set; }
         public List<ulong> BanUserIDs { get; set; }
         public List<ulong> BanRoleIDs { get; set; }
         public List<ulong> KickUserIDs { get; set; }

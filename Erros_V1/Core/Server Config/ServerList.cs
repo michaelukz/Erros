@@ -61,6 +61,7 @@ namespace Erros
                 ServerPrefix = ")",
                 AutoRoleID = 0,
                 AutoRoleName = "nul",
+                MutedUserIDs = new List<ulong> { },
                 BanUserIDs = new List<ulong> { 216989163835097090 },
                 BanRoleIDs = new List<ulong> { },
                 KickRoleIDs = new List<ulong> { 216989163835097090 },
