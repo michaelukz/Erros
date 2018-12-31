@@ -153,21 +153,97 @@ namespace Erros.Errors
             return e;
         }
         /// <summary>
-        /// Log: AVB-10 Log channel VIEWER.
+        /// Log: AVB-10 Help Command has been issued.
         /// </summary>
         public static EmbedBuilder avb10(SocketGuild guild)
         {
             var x = ServerList.getServer(guild);
-            var s = ulong.TryParse(x.ServerLogChannel, out ulong res);
-            var log = guild.GetTextChannel(res);
+            List<SocketTextChannel> chans = new List<SocketTextChannel>();
+            SocketRole ExampleRole = null;
             var e = new EmbedBuilder()
             {
-                Title = ($"Log Channel:"),
-                Description = ($"The log channel is currently set to: {log.Mention}"),
+                Title = ($"Commands:"),
                 Timestamp = (DateTime.Now),
                 Color = new Color(142, 5, 5),
-                ThumbnailUrl = ("https://media2.giphy.com/media/xUPGcimWgSiwEVrAvS/giphy.gif?cid=3640f6095c292c8b436d363451266f4e")
             };
+            foreach (SocketTextChannel Channels in guild.TextChannels)
+            {
+                chans.Add(Channels);
+            }
+            Random Rand = new Random();
+            var chan1 = Rand.Next(chans.Count);
+            var exampleText = chans[chan1];
+            foreach (SocketRole role in guild.Roles)
+            {
+                if (guild.Roles.Count == 0)
+                {
+                    ExampleRole = null;
+                }
+                else
+                {
+                    ExampleRole = role;
+                }
+            }
+            e.AddField("Server Owner Commands", "\u200b", false);
+            if (ExampleRole == null)
+            {
+                e.AddField("autorole", $"Set the default role upon entering the server.\nUsage: {x.ServerPrefix}autorole @role", true);
+                e.AddField("permission", $"Give a user or a role permission to use a certain command.\nUsage: {x.ServerPrefix}permission permission @user // {x.ServerPrefix}permission permission @role", true);
+            }
+            else
+            {
+                e.AddField("autorole", $"Set the default role upon entering the server.\nUsage: {x.ServerPrefix}autorole @role\nExample: {x.ServerPrefix}autorole {ExampleRole.Mention}", true);
+                e.AddField("permission", $"Give a user or a role permission to use a certain command.\nUsage: {x.ServerPrefix}permission permission @user // {x.ServerPrefix}permission permission @role\nExample: {x.ServerPrefix}permission -ban {guild.Owner.Mention} // {x.ServerPrefix}permission -ban {ExampleRole.Mention}", true);
+            }
+            e.AddField("logchannel", $"Set the log channel for this server.\nUsage: {x.ServerPrefix}logchannel #channel\nExample: {x.ServerPrefix}logchannel {exampleText.Mention}", true);
+            e.AddField("prefix", $"Set the prefix used to activate the bot on this server.\nUsage: {x.ServerPrefix} prefix\nExample: {x.ServerPrefix}prefix %", true);
+            return e;
+        }
+        /// <summary>
+        /// Log: AVB-11 Help Command has been issued (Owner Commands Only).
+        /// </summary>
+        public static EmbedBuilder avb11(SocketGuild guild)
+        {
+            var x = ServerList.getServer(guild);
+            List<SocketTextChannel> chans = new List<SocketTextChannel>();
+            SocketRole ExampleRole = null;
+            var e = new EmbedBuilder()
+            {
+                Title = ($"Commands:"),
+                Timestamp = (DateTime.Now),
+                Color = new Color(142, 5, 5),
+            };
+            foreach (SocketTextChannel Channels in guild.TextChannels)
+            {
+                chans.Add(Channels);
+            }
+            Random Rand = new Random();
+            var chan1 = Rand.Next(chans.Count);
+            var exampleText = chans[chan1];
+            foreach (SocketRole role in guild.Roles)
+            {
+                if (guild.Roles.Count == 0)
+                {
+                    ExampleRole = null;
+                }
+                else
+                {
+                    ExampleRole = role;
+                }
+            }
+            e.AddField("Server Owner Commands", "\u200b", false);
+            if (ExampleRole == null)
+            {
+                e.AddField("autorole", $"Set the default role upon entering the server.\nUsage: {x.ServerPrefix}autorole @role", true);
+                e.AddField("permission", $"Give a user or a role permission to use a certain command.\nUsage: {x.ServerPrefix}permission permission @user // {x.ServerPrefix}permission permission @role", true);
+            }
+            else
+            {
+                e.AddField("autorole", $"Set the default role upon entering the server.\nUsage: {x.ServerPrefix}autorole @role\nExample: {x.ServerPrefix}autorole {ExampleRole.Mention}", true);
+                e.AddField("permission", $"Give a user or a role permission to use a certain command.\nUsage: {x.ServerPrefix}permission permission @user // {x.ServerPrefix}permission permission @role\nExample: {x.ServerPrefix}permission -ban {guild.Owner.Mention} // {x.ServerPrefix}permission -ban {ExampleRole.Mention}", true);
+            }
+            e.AddField("logchannel", $"Set the log channel for this server.\nUsage: {x.ServerPrefix}logchannel #channel\nExample: {x.ServerPrefix}logchannel {exampleText.Mention}", true);
+            e.AddField("prefix", $"Set the prefix used to activate the bot on this server.\nUsage: {x.ServerPrefix} prefix\nExample: {x.ServerPrefix}prefix %", true);
             return e;
         }
     }
@@ -315,117 +391,9 @@ namespace Erros.Errors
             };
             return e;
         }
-        /// <summary>
-        /// Error: AVB-10 [LogChannel] Specify set or view.
-        /// </summary>
-        public static EmbedBuilder avb10()
-        {
-            var e = new EmbedBuilder()
-            {
-                Title = ($"I could not run the Log Channel command."),
-                Description = ($"Please specify set or view."),
-                Timestamp = (DateTime.Now),
-                Color = new Color(142, 5, 5),
-                ThumbnailUrl = ("http://www.free-icons-download.net/images/red-error-flag-icon-41893.png")
-            };
-            return e;
-        }
     }
     public class HelpItem : ModuleBase<SocketCommandContext>
     {
-        /// <summary>
-        /// Log: AVB-10 Help Command has been issued.
-        /// </summary>
-        public static EmbedBuilder avb01(SocketGuild guild)
-        {
-            var x = ServerList.getServer(guild);
-            List<SocketTextChannel> chans = new List<SocketTextChannel>();
-            SocketRole ExampleRole = null;
-            var e = new EmbedBuilder()
-            {
-                Title = ($"Commands:"),
-                Timestamp = (DateTime.Now),
-                Color = new Color(142, 5, 5),
-            };
-            foreach (SocketTextChannel Channels in guild.TextChannels)
-            {
-                chans.Add(Channels);
-            }
-            Random Rand = new Random();
-            var chan1 = Rand.Next(chans.Count);
-            var exampleText = chans[chan1];
-            foreach (SocketRole role in guild.Roles)
-            {
-                if (guild.Roles.Count == 0)
-                {
-                    ExampleRole = null;
-                }
-                else
-                {
-                    ExampleRole = role;
-                }
-            }
-            e.AddField("Server Owner Commands", "\u200b", false);
-            if (ExampleRole == null)
-            {
-                e.AddField("autorole", $"Set the default role upon entering the server.\nUsage: {x.ServerPrefix}autorole @role", true);
-                e.AddField("permission", $"Give a user or a role permission to use a certain command.\nUsage: {x.ServerPrefix}permission permission @user // {x.ServerPrefix}permission permission @role", true);
-            }
-            else
-            {
-                e.AddField("autorole", $"Set the default role upon entering the server.\nUsage: {x.ServerPrefix}autorole @role\nExample: {x.ServerPrefix}autorole {ExampleRole.Mention}", true);
-                e.AddField("permission", $"Give a user or a role permission to use a certain command.\nUsage: {x.ServerPrefix}permission permission @user // {x.ServerPrefix}permission permission @role\nExample: {x.ServerPrefix}permission -ban {guild.Owner.Mention} // {x.ServerPrefix}permission -ban {ExampleRole.Mention}", true);
-            }
-            e.AddField("logchannel", $"Set the log channel for this server.\nUsage: {x.ServerPrefix}logchannel #channel\nExample: {x.ServerPrefix}logchannel {exampleText.Mention}", true);
-            e.AddField("prefix", $"Set the prefix used to activate the bot on this server.\nUsage: {x.ServerPrefix} prefix\nExample: {x.ServerPrefix}prefix %", true);
-            return e;
-        }
-        /// <summary>
-        /// Log: AVB-11 Help Command has been issued (Owner Commands Only).
-        /// </summary>
-        public static EmbedBuilder avb02(SocketGuild guild)
-        {
-            var x = ServerList.getServer(guild);
-            List<SocketTextChannel> chans = new List<SocketTextChannel>();
-            SocketRole ExampleRole = null;
-            var e = new EmbedBuilder()
-            {
-                Title = ($"Commands:"),
-                Timestamp = (DateTime.Now),
-                Color = new Color(142, 5, 5),
-            };
-            foreach (SocketTextChannel Channels in guild.TextChannels)
-            {
-                chans.Add(Channels);
-            }
-            Random Rand = new Random();
-            var chan1 = Rand.Next(chans.Count);
-            var exampleText = chans[chan1];
-            foreach (SocketRole role in guild.Roles)
-            {
-                if (guild.Roles.Count == 0)
-                {
-                    ExampleRole = null;
-                }
-                else
-                {
-                    ExampleRole = role;
-                }
-            }
-            e.AddField("Server Owner Commands", "\u200b", false);
-            if (ExampleRole == null)
-            {
-                e.AddField("autorole", $"Set the default role upon entering the server.\nUsage: {x.ServerPrefix}autorole @role", true);
-                e.AddField("permission", $"Give a user or a role permission to use a certain command.\nUsage: {x.ServerPrefix}permission permission @user // {x.ServerPrefix}permission permission @role", true);
-            }
-            else
-            {
-                e.AddField("autorole", $"Set the default role upon entering the server.\nUsage: {x.ServerPrefix}autorole @role\nExample: {x.ServerPrefix}autorole {ExampleRole.Mention}", true);
-                e.AddField("permission", $"Give a user or a role permission to use a certain command.\nUsage: {x.ServerPrefix}permission permission @user // {x.ServerPrefix}permission permission @role\nExample: {x.ServerPrefix}permission -ban {guild.Owner.Mention} // {x.ServerPrefix}permission -ban {ExampleRole.Mention}", true);
-            }
-            e.AddField("logchannel", $"Set the log channel for this server.\nUsage: {x.ServerPrefix}logchannel #channel\nExample: {x.ServerPrefix}logchannel {exampleText.Mention}", true);
-            e.AddField("prefix", $"Set the prefix used to activate the bot on this server.\nUsage: {x.ServerPrefix} prefix\nExample: {x.ServerPrefix}prefix %", true);
-            return e;
-        }
+
     }
 }
