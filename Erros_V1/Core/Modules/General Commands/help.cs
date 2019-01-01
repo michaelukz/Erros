@@ -24,7 +24,7 @@ namespace Erros
         {
             if (helpType.ToLower() == "owner")
             {
-                EmbedBuilder e = Logs.avb11(Context.Guild);
+                EmbedBuilder e = HelpItem.avb02(Context.Guild);
                 await ReplyAsync("", false, e.Build());
             }
         }
