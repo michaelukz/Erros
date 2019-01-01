@@ -170,6 +170,22 @@ namespace Erros.Errors
             };
             return e;
         }
+        /// <summary>
+        /// Log: AVB-11 User Chat Muted.
+        /// </summary>
+        public static EmbedBuilder avb11(SocketUser user, string reason, SocketUser admin)
+        {
+            var e = new EmbedBuilder()
+            {
+                Title = ($"A user has been chat muted."),
+                Description = ($"{user.Mention} was muted for [{reason}]"),
+                Timestamp = (DateTime.Now),
+                Color = new Color(142, 5, 5),
+                ThumbnailUrl = ("https://media0.giphy.com/media/l0HlOvCmcpTOgiq0E/giphy.gif?cid=3640f6095c2ace5432345847498a38a0")
+            };
+            e.AddField("Admin:", $"{admin.Mention}", false);
+            return e;
+        }
     }
     public class Error : ModuleBase<SocketCommandContext>
     {
@@ -224,7 +240,7 @@ namespace Erros.Errors
             return e;
         }
         /// <summary>
-        /// Error: AVB-04 Ban Reason Not Set.
+        /// Error: AVB-04 Reason Not Set.
         /// </summary>
         public static EmbedBuilder avb04()
         {
@@ -334,7 +350,7 @@ namespace Erros.Errors
     public class HelpItem : ModuleBase<SocketCommandContext>
     {
         /// <summary>
-        /// Log: AVB-10 Help Command has been issued.
+        /// Log: AVB-01 Help Command has been issued.
         /// </summary>
         public static EmbedBuilder avb01(SocketGuild guild)
         {
@@ -381,7 +397,7 @@ namespace Erros.Errors
             return e;
         }
         /// <summary>
-        /// Log: AVB-11 Help Command has been issued (Owner Commands Only).
+        /// Log: AVB-02 Help Command has been issued (Owner Commands Only).
         /// </summary>
         public static EmbedBuilder avb02(SocketGuild guild)
         {
