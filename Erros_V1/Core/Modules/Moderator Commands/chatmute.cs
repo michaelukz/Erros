@@ -47,6 +47,7 @@ namespace Erros
                     }
                     else
                     {
+                        x.MutedUserIDs.Add(user.Id);
                         var e = Logs.avb11(user, reason, Context.Message.Author);
                         await log.SendMessageAsync("", false, e.Build());
                     }
