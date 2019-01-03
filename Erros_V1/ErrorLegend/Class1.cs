@@ -355,45 +355,16 @@ namespace Erros.Errors
         public static EmbedBuilder avb01(SocketGuild guild)
         {
             var x = ServerList.getServer(guild);
-            List<SocketTextChannel> chans = new List<SocketTextChannel>();
-            SocketRole ExampleRole = null;
             var e = new EmbedBuilder()
             {
-                Title = ($"Commands:"),
+                Title = ($"Command Types:"),
                 Timestamp = (DateTime.Now),
                 Color = new Color(142, 5, 5),
             };
-            foreach (SocketTextChannel Channels in guild.TextChannels)
-            {
-                chans.Add(Channels);
-            }
-            Random Rand = new Random();
-            var chan1 = Rand.Next(chans.Count);
-            var exampleText = chans[chan1];
-            foreach (SocketRole role in guild.Roles)
-            {
-                if (guild.Roles.Count == 0)
-                {
-                    ExampleRole = null;
-                }
-                else
-                {
-                    ExampleRole = role;
-                }
-            }
-            e.AddField("Server Owner Commands", "\u200b", false);
-            if (ExampleRole == null)
-            {
-                e.AddField("autorole", $"Set the default role upon entering the server.\nUsage: {x.ServerPrefix}autorole @role", true);
-                e.AddField("permission", $"Give a user or a role permission to use a certain command.\nUsage: {x.ServerPrefix}permission permission @user // {x.ServerPrefix}permission permission @role", true);
-            }
-            else
-            {
-                e.AddField("autorole", $"Set the default role upon entering the server.\nUsage: {x.ServerPrefix}autorole @role\nExample: {x.ServerPrefix}autorole {ExampleRole.Mention}", true);
-                e.AddField("permission", $"Give a user or a role permission to use a certain command.\nUsage: {x.ServerPrefix}permission permission @user // {x.ServerPrefix}permission permission @role\nExample: {x.ServerPrefix}permission -ban {guild.Owner.Mention} // {x.ServerPrefix}permission -ban {ExampleRole.Mention}", true);
-            }
-            e.AddField("logchannel", $"Set the log channel for this server.\nUsage: {x.ServerPrefix}logchannel #channel\nExample: {x.ServerPrefix}logchannel {exampleText.Mention}", true);
-            e.AddField("prefix", $"Set the prefix used to activate the bot on this server.\nUsage: {x.ServerPrefix} prefix\nExample: {x.ServerPrefix}prefix %", true);
+            e.AddField("Owner Commands", $"{x.ServerPrefix}help owner", true);
+            e.AddField("Administrator Commands", $"{x.ServerPrefix}help admin", true);
+            e.AddField("Moderator Commands", $"{x.ServerPrefix}help mod", true);
+            e.AddField("General Commands", $"{x.ServerPrefix}help general", true);
             return e;
         }
         /// <summary>
@@ -441,6 +412,43 @@ namespace Erros.Errors
             }
             e.AddField("logchannel", $"Set the log channel for this server.\nUsage: {x.ServerPrefix}logchannel #channel\nExample: {x.ServerPrefix}logchannel {exampleText.Mention}", true);
             e.AddField("prefix", $"Set the prefix used to activate the bot on this server.\nUsage: {x.ServerPrefix} prefix\nExample: {x.ServerPrefix}prefix %", true);
+            return e;
+        }
+        /// <summary>
+        /// Log: AVB-02 Help Command has been issued (Admin Commands Only).
+        /// </summary>
+        public static EmbedBuilder avb03(SocketGuild guild)
+        {
+            var x = ServerList.getServer(guild);
+            SocketRole ExampleRole = null;
+            var e = new EmbedBuilder()
+            {
+                Title = ($"Commands:"),
+                Timestamp = (DateTime.Now),
+                Color = new Color(142, 5, 5),
+            };
+            foreach (SocketRole role in guild.Roles)
+            {
+                if (guild.Roles.Count == 0)
+                {
+                    ExampleRole = null;
+                }
+                else
+                {
+                    ExampleRole = role;
+                }
+            }
+            e.AddField("Admin Commands", "\u200b", false);
+            if (ExampleRole == null)
+            {
+                e.AddField("ban", $"Ban a user from a server.\nUsage: {x.ServerPrefix}ban @user", true);
+                e.AddField("kick", $"Kick a user or role from the server.\nUsage: {x.ServerPrefix}kick @user // {x.ServerPrefix}kick @role", true);
+            }
+            else
+            {
+                e.AddField("ban", $"Ban a user from a server.\nUsage: {x.ServerPrefix}ban @user", true);
+                e.AddField("kick", $"Kick a user or role from the server.\nUsage: {x.ServerPrefix}kick @user // {x.ServerPrefix}kick @role\nExample: {x.ServerPrefix}kick {ExampleRole.Mention}", true);
+            }
             return e;
         }
     }

@@ -16,7 +16,7 @@ namespace Erros
         [Command("help")]
         public async Task HelpAsync()
         {
-            EmbedBuilder e = Logs.avb10(Context.Guild);
+            EmbedBuilder e = HelpItem.avb01(Context.Guild);
             await ReplyAsync("", false, e.Build());
         }
         [Command("help")]
@@ -26,6 +26,15 @@ namespace Erros
             {
                 EmbedBuilder e = HelpItem.avb02(Context.Guild);
                 await ReplyAsync("", false, e.Build());
+            }
+            else if (helpType.ToLower() == "admin")
+            {
+                EmbedBuilder e = HelpItem.avb03(Context.Guild);
+                await ReplyAsync("", false, e.Build());
+            }
+            else
+            {
+                await ReplyAsync("I don't regognise that one, run `help` for a list of types.");
             }
         }
     }
