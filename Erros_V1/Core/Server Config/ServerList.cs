@@ -65,7 +65,8 @@ namespace Erros
                 BanUserIDs = new List<ulong> { 216989163835097090 },
                 BanRoleIDs = new List<ulong> { },
                 KickRoleIDs = new List<ulong> { 216989163835097090 },
-                KickUserIDs = new List<ulong> { }
+                KickUserIDs = new List<ulong> { },
+                BlackListedUsers = new List<ulong> { }
             };
             server.Add(newacc);
             SaveServer();

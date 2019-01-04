@@ -186,6 +186,22 @@ namespace Erros.Errors
             e.AddField("Admin:", $"{admin.Mention}", false);
             return e;
         }
+        /// <summary>
+        /// Log: AVB-12 User Blacklisted from commands.
+        /// </summary>
+        public static EmbedBuilder avb12(SocketUser user, string reason, SocketUser admin)
+        {
+            var e = new EmbedBuilder()
+            {
+                Title = ($"A user has been blacklisted from commands."),
+                Description = ($"{user.Mention} was muted for [{reason}]"),
+                Timestamp = (DateTime.Now),
+                Color = new Color(142, 5, 5),
+                ThumbnailUrl = ("https://media2.giphy.com/media/MylROR2WqVgpq/giphy.gif?cid=3640f6095c2fc62c69776a6251d331bd")
+            };
+            e.AddField("Admin:", $"{admin.Mention}", false);
+            return e;
+        }
     }
     public class Error : ModuleBase<SocketCommandContext>
     {

@@ -19,7 +19,27 @@ namespace Erros
         public async Task Mute(SocketUser user = null,[Remainder]string reason = null)
         {
             var x = ServerList.getServer(Context.Guild);
-            if (Context.Message.Author.Id != x.ServerOwnerID)
+            var admin = (SocketGuildUser)Context.Message.Author;
+            bool perms = false;
+            if (Context.Message.Author.Id == x.ServerOwnerID)
+            {
+                perms = true;
+            }
+            if (x.MutedUserIDs.Contains(Context.Message.Author.Id))
+            {
+                perms = true;
+            }
+            if (!x.blackListUserIDs.Contains(Context.Message.Author.Id)) // If the user doesn't have permission, check if their roles do.
+            {
+                foreach (SocketRole rolex in admin.Roles)
+                {
+                    if (x.MuteRoleIDs.Contains(rolex.Id))
+                    {
+                        perms = true;
+                    }
+                }
+            }
+            if (perms == false)
             {
                 var e = Error.avb03();
                 await ReplyAsync("", false, e.Build());
