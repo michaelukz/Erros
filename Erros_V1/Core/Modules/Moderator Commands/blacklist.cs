@@ -72,7 +72,7 @@ namespace Erros
                     }
                 }
             }
-            //var u = UserList.getUser(user);
+            ServerList.SaveServer();
         }
     }
 }

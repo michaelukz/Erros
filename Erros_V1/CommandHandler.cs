@@ -40,6 +40,7 @@ namespace HandleCommands
         {
             var g = user.Guild;
             var x = ServerList.getServer(g);
+            var u = UserList.getUser(user);
             var output = ulong.TryParse(x.ServerLogChannel, out ulong LogID);
             var log = g.GetTextChannel(LogID);
             if (x.AutoRoleName == "nul")
@@ -61,6 +62,8 @@ namespace HandleCommands
                     Console.WriteLine($"[{g.Name}] A new user has joined. Assigned {user.Username} the {role.Name} role.");
                 }
             }
+            UserList.SaveUser();
+            ServerList.SaveServer();
         }
 
         public static uint GetCommands()
@@ -105,11 +108,10 @@ namespace HandleCommands
             var context = new SocketCommandContext(_client, msg);     // Create a new command context.
             var app = await context.Client.GetApplicationInfoAsync();
             if (s.Author.IsBot) return;
-            if (x.MutedUserIDs.Contains(s.Author.Id)) await s.DeleteAsync(); Console.WriteLine("User is Muted");
-            if (x.BlackListedUsers.Contains(s.Author.Id)) Console.WriteLine("User is Blacklisted");
-            u.Messages += 1;
             Console.WriteLine($"[{s.Channel}][{s.Author}]: ({s}) @{DateTime.Now.Hour}:{DateTime.Now.Minute} ");
-            
+            if (x.MutedUserIDs.Contains(s.Author.Id)) { await s.DeleteAsync(); Console.WriteLine("User is Muted"); return; }
+            if (x.BlackListedUsers.Contains(s.Author.Id)) { Console.WriteLine("User is Blacklisted"); return; }
+            u.Messages += 1;
             int argPos = 0;                                           // Check if the message has either a string or mention prefix.
             if (msg.HasStringPrefix(x.ServerPrefix, ref argPos) ||
                 msg.HasMentionPrefix(_client.CurrentUser, ref argPos))
@@ -122,6 +124,8 @@ namespace HandleCommands
                     CommandsToday += 1;
                 }
             }
+            UserList.SaveUser();
+            ServerList.SaveServer();
         }
     }
 }

@@ -76,6 +76,7 @@ namespace Erros
                     await ReplyAsync("", false, e.Build());
                 }
             }
+            ServerList.SaveServer();
         }
         [Command("kick")]
         public async Task KickAsync(SocketRole role = null, [Remainder]string reason = null)
@@ -145,6 +146,7 @@ namespace Erros
                     await ReplyAsync("", false, e.Build());
                 }
             }
+            ServerList.SaveServer();
         }
     }
 }

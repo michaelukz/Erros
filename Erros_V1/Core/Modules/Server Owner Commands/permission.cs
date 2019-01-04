@@ -58,6 +58,7 @@ namespace Erros
                         }
                     }
                 }
+                ServerList.SaveServer();
             }
         }
         [Command("addperm"), Summary("Add a permission to a user.")]
@@ -104,6 +105,7 @@ namespace Erros
                         }
                     }
                 }
+                ServerList.SaveServer();
             }
         }
         [Command("delperm")]
@@ -150,6 +152,7 @@ namespace Erros
                 EmbedBuilder e = Error.avb03();
                 await ReplyAsync("", false, e.Build());
             }
+            ServerList.SaveServer();
         }
         [Command("delperm")]
         public async Task DeletePermissions(string permission = null, SocketGuildUser user = null)
@@ -195,6 +198,7 @@ namespace Erros
                 EmbedBuilder e = Error.avb03();
                 await ReplyAsync("", false, e.Build());
             }
+            ServerList.SaveServer();
         }
     }
 }

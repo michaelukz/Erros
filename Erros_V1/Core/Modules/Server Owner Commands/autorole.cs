@@ -44,6 +44,7 @@ namespace Erros
                     await ReplyAsync("", false, e.Build());
                 }
             }
+            ServerList.SaveServer();
         }
     }
 }

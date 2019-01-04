@@ -47,6 +47,7 @@ namespace Erros
                     }
                 }
             }
+            ServerList.SaveServer();
         }
     }
 }
