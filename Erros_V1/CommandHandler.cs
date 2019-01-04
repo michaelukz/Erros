@@ -95,7 +95,9 @@ namespace HandleCommands
         {
             var msg = s as SocketUserMessage;
             var channel = (SocketTextChannel)s.Channel;
+            var user = channel.Guild.GetUser(s.Author.Id);
             var x = ServerList.getServer(channel.Guild);
+            var u = UserList.getUser(user);
             var services = new ServiceCollection()
                  .AddSingleton(_client)
                  .AddSingleton<InteractiveService>()
@@ -104,7 +106,10 @@ namespace HandleCommands
             var app = await context.Client.GetApplicationInfoAsync();
             if (s.Author.IsBot) return;
             if (x.MutedUserIDs.Contains(s.Author.Id)) await s.DeleteAsync(); Console.WriteLine("User is Muted");
+            if (x.BlackListedUsers.Contains(s.Author.Id)) Console.WriteLine("User is Blacklisted");
+            u.Messages += 1;
             Console.WriteLine($"[{s.Channel}][{s.Author}]: ({s}) @{DateTime.Now.Hour}:{DateTime.Now.Minute} ");
+            
             int argPos = 0;                                           // Check if the message has either a string or mention prefix.
             if (msg.HasStringPrefix(x.ServerPrefix, ref argPos) ||
                 msg.HasMentionPrefix(_client.CurrentUser, ref argPos))
