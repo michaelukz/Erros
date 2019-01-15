@@ -202,6 +202,22 @@ namespace Erros.Errors
             e.AddField("Admin:", $"{admin.Mention}", false);
             return e;
         }
+        /// <summary>
+        /// Log: AVB-13 User Audio Muted.
+        /// </summary>
+        public static EmbedBuilder avb13(SocketUser user, string reason, SocketUser admin)
+        {
+            var e = new EmbedBuilder()
+            {
+                Title = ($"A user has been audio muted."),
+                Description = ($"{user.Mention} was muted for [{reason}]"),
+                Timestamp = (DateTime.Now),
+                Color = new Color(142, 5, 5),
+                ThumbnailUrl = ("https://media2.giphy.com/media/HWl1atKEPAWcw/giphy.gif?cid=3640f6095c3e232161586c796f1f3426")
+            };
+            e.AddField("Admin:", $"{admin.Mention}", false);
+            return e;
+        }
     }
     public class Error : ModuleBase<SocketCommandContext>
     {
@@ -356,6 +372,21 @@ namespace Erros.Errors
             {
                 Title = ($"I could not run the Log Channel command."),
                 Description = ($"Please specify set or view."),
+                Timestamp = (DateTime.Now),
+                Color = new Color(142, 5, 5),
+                ThumbnailUrl = ("http://www.free-icons-download.net/images/red-error-flag-icon-41893.png")
+            };
+            return e;
+        }
+        /// <summary>
+        /// Error: AVB-11 Specify time
+        /// </summary>
+        public static EmbedBuilder avb11()
+        {
+            var e = new EmbedBuilder()
+            {
+                Title = ($"No Time / Interval set"),
+                Description = ($"Please specify a time interval (in minutes)."),
                 Timestamp = (DateTime.Now),
                 Color = new Color(142, 5, 5),
                 ThumbnailUrl = ("http://www.free-icons-download.net/images/red-error-flag-icon-41893.png")

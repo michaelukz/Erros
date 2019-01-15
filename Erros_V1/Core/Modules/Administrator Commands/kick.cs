@@ -38,7 +38,7 @@ namespace Erros
                 {
                     perms = true;
                 }
-                if (server.KickUserIDs.Contains(Context.Message.Author.Id))
+                if (!server.KickUserIDs.Contains(Context.Message.Author.Id))
                 {
                     foreach (SocketRole rolex in GUser.Roles)
                     {
