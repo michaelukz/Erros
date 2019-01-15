@@ -30,7 +30,7 @@ namespace Erros
         public List<ulong> BlackListedUsers { get; set; } // Users Messages will be ignored
         public List<ulong> MutedUserIDs { get; set; } // Users Messages will be deleted
         public List<ulong> TimeoutUsersID { get; set; } // Users who are currently 'Timed Out' Unique ID
-        public List<DateTime> TimeoutLength { get; set; } // The corresponding length of time to 'Time Out' a user
+        public List<ulong> TimeoutLength { get; set; } // The corresponding length of time to 'Time Out' a user (In Minutes)
         public List<string> TimeoutReason { get; set; } // The corresponding reason for a 'Time Out'
     }
 }

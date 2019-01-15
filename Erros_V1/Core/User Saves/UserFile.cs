@@ -19,5 +19,6 @@ namespace Erros
         public List<ulong> WarningServer { get; set; }
         public List<ulong> WarningAdmin { get; set; }
         public List<string> WarningReasons { get; set; }
+        public ulong GifSent { get; set; }
     }
 }

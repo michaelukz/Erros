@@ -205,17 +205,35 @@ namespace Erros.Errors
         /// <summary>
         /// Log: AVB-13 User Audio Muted.
         /// </summary>
-        public static EmbedBuilder avb13(SocketUser user, string reason, SocketUser admin)
+        public static EmbedBuilder avb13(SocketUser user, string reason, SocketUser admin,ulong time)
         {
             var e = new EmbedBuilder()
             {
                 Title = ($"A user has been audio muted."),
-                Description = ($"{user.Mention} was muted for [{reason}]"),
+                Description = ($"{user.Mention} was muted for [{time} minutes]"),
                 Timestamp = (DateTime.Now),
                 Color = new Color(142, 5, 5),
                 ThumbnailUrl = ("https://media2.giphy.com/media/HWl1atKEPAWcw/giphy.gif?cid=3640f6095c3e232161586c796f1f3426")
             };
             e.AddField("Admin:", $"{admin.Mention}", false);
+            e.AddField("Reason:", $"{reason}", false);
+            return e;
+        }
+        /// <summary>
+        /// Log: AVB-14 User Audio unmuted.
+        /// </summary>
+        public static EmbedBuilder avb14(SocketUser user, string reason, SocketUser admin,ulong time)
+        {
+            var e = new EmbedBuilder()
+            {
+                Title = ($"A user has been unmuted."),
+                Description = ($"{user.Mention} was muted for [{time} minutes]"),
+                Timestamp = (DateTime.Now),
+                Color = new Color(142, 5, 5),
+                ThumbnailUrl = ("https://media1.giphy.com/media/3oriOhsirvUl1QMHHa/giphy.gif?cid=3640f6095c3e4c164f634d6532d80093")
+            };
+            e.AddField("Admin:", $"{admin.Mention}", false);
+            e.AddField("Reason:", $"{reason}", false);
             return e;
         }
     }

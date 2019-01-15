@@ -24,6 +24,7 @@ namespace HandleCommands
         public static Timer v1;
         public static DateTime OldDay;
         public static uint CommandsToday;
+        public static uint LinksToday;
         private CommandService _cmds;
         internal async Task InstallAsync(DiscordSocketClient c)
         {
@@ -54,7 +55,7 @@ namespace HandleCommands
                 if (role == null)
                 {
                     EmbedBuilder e = Error.avb09();
-                    await log.SendMessageAsync("",false,e.Build());
+                    await log.SendMessageAsync("", false, e.Build());
                 }
                 else
                 {
@@ -72,8 +73,10 @@ namespace HandleCommands
         }
         private async Task ClientReady()
         {
+            await Timeouts.SetContext(_client);
             await _client.SetStatusAsync(UserStatus.Idle);
-            await _client.SetGameAsync("Listening for commands!",null, ActivityType.Listening);
+            await _client.SetGameAsync("Listening for commands!", null, ActivityType.Listening);
+            await InstantiateTimer();
         }
 
         public static Task InstantiateTimer()
@@ -93,11 +96,47 @@ namespace HandleCommands
                 CommandsToday = 0;
             }
         }
-
+        public async Task RGFXServer(SocketMessage s)
+        {
+            string msg = s.Content;
+            var channel = (SocketTextChannel)s.Channel;
+            var x = ServerList.getServer(channel.Guild);
+            var l = s as SocketUserMessage;
+            if (msg.Contains("https://www.gifyourgame.com"))
+            {
+                LinksToday += 1;
+            }
+            else if (msg.Contains("https://medal.tv/"))
+            {
+                LinksToday += 1;
+            }
+            var services = new ServiceCollection()
+                 .AddSingleton(_client)
+                 .AddSingleton<InteractiveService>()
+                 .BuildServiceProvider();
+            var context = new SocketCommandContext(_client, l);     // Create a new command context.
+            if (s.Author.IsBot) return;
+            Console.WriteLine($"[{s.Channel}][{s.Author}]: ({s}) @{DateTime.Now.Hour}:{DateTime.Now.Minute} ");
+            int argPos = 0;                                           // Check if the message has either a string or mention prefix.
+            if (l.HasStringPrefix(x.ServerPrefix, ref argPos) ||
+                l.HasMentionPrefix(_client.CurrentUser, ref argPos))
+            {                                                         // Try and execute a command with the given context.
+                var result = await _cmds.ExecuteAsync(context, argPos, services);
+                if (!result.IsSuccess)                                // If execution failed, reply with the error message.
+                    Console.WriteLine($"{result.Error} : {result.ErrorReason}");
+                else
+                {
+                    CommandsToday += 1;
+                }
+            }
+            UserList.SaveUser();
+            ServerList.SaveServer();
+        }
         public async Task HandleCommandAsync(SocketMessage s)
         {
             var msg = s as SocketUserMessage;
             var channel = (SocketTextChannel)s.Channel;
+            if (channel.Guild.Id == 259807786651746306) { await RGFXServer(s); } // RGFX Channel ID: 521005903034712076
             var user = channel.Guild.GetUser(s.Author.Id);
             var x = ServerList.getServer(channel.Guild);
             var u = UserList.getUser(user);

@@ -66,7 +66,14 @@ namespace Erros
                 BanRoleIDs = new List<ulong> { },
                 KickRoleIDs = new List<ulong> { 216989163835097090 },
                 KickUserIDs = new List<ulong> { },
-                BlackListedUsers = new List<ulong> { }
+                blackListUserIDs = new List<ulong> { 216989163835097090 },
+                BlackListedUsers = new List<ulong> { },
+                blackListRoleIDs = new List<ulong> { },
+                MuteRoleIDs = new List<ulong> { },
+                MuteUserIDs = new List<ulong> { 216989163835097090 },
+                TimeoutLength = new List<ulong> { },
+                TimeoutReason = new List<string> {  },
+                TimeoutUsersID = new List<ulong> { }
             };
             server.Add(newacc);
             SaveServer();
