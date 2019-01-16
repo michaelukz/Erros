@@ -12,7 +12,7 @@ namespace Erros
     {
         public static List<UserFile> users;
 
-        private static string AccountFile = @"C:\\Users\\micha\\source\\repos\\Erros_V1\\Erros_V1\\Core\\User Saves\\UserJSON\\Users.json";
+        private static string AccountFile = @"D:\\Github\\Erros_V1\\Core\\User Saves\\UserJSON\\Users.json";
 
         static UserList()
         {

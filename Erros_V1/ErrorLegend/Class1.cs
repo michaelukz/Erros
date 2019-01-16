@@ -236,6 +236,24 @@ namespace Erros.Errors
             e.AddField("Reason:", $"{reason}", false);
             return e;
         }
+        /// <summary>
+        /// Log: AVB-15 Log channel SET.
+        /// </summary>
+        public static EmbedBuilder avb15(SocketGuild guild)
+        {
+            var x = ServerList.getServer(guild);
+            var s = ulong.TryParse(x.ServerLogChannel, out ulong res);
+            var log = guild.GetTextChannel(res);
+            var e = new EmbedBuilder()
+            {
+                Title = ($"Log Channel:"),
+                Description = ($"The log channel has been set to: {log.Mention}"),
+                Timestamp = (DateTime.Now),
+                Color = new Color(142, 5, 5),
+                ThumbnailUrl = ("https://media2.giphy.com/media/xUPGcimWgSiwEVrAvS/giphy.gif?cid=3640f6095c292c8b436d363451266f4e")
+            };
+            return e;
+        }
     }
     public class Error : ModuleBase<SocketCommandContext>
     {
