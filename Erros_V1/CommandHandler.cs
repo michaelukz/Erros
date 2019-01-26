@@ -102,65 +102,49 @@ namespace HandleCommands
             var channel = (SocketTextChannel)s.Channel;
             var x = ServerList.getServer(channel.Guild);
             var l = s as SocketUserMessage;
+            var user = (SocketGuildUser)s.Author;
             if (msg.Contains("https://www.gifyourgame.com"))
             {
                 LinksToday += 1;
+                LinkLevelSystem.AddLink(user, s);
             }
             else if (msg.Contains("https://medal.tv/"))
             {
                 LinksToday += 1;
-            }
-            var services = new ServiceCollection()
-                 .AddSingleton(_client)
-                 .AddSingleton<InteractiveService>()
-                 .BuildServiceProvider();
-            var context = new SocketCommandContext(_client, l);     // Create a new command context.
-            if (s.Author.IsBot) return;
-            Console.WriteLine($"[{s.Channel}][{s.Author}]: ({s}) @{DateTime.Now.Hour}:{DateTime.Now.Minute} ");
-            int argPos = 0;                                           // Check if the message has either a string or mention prefix.
-            if (l.HasStringPrefix(x.ServerPrefix, ref argPos) ||
-                l.HasMentionPrefix(_client.CurrentUser, ref argPos))
-            {                                                         // Try and execute a command with the given context.
-                var result = await _cmds.ExecuteAsync(context, argPos, services);
-                if (!result.IsSuccess)                                // If execution failed, reply with the error message.
-                    Console.WriteLine($"{result.Error} : {result.ErrorReason}");
-                else
-                {
-                    CommandsToday += 1;
-                }
+                LinkLevelSystem.AddLink(user, s);
             }
             UserList.SaveUser();
             ServerList.SaveServer();
         }
         public async Task HandleCommandAsync(SocketMessage s)
         {
-            var msg = s as SocketUserMessage;
-            var channel = (SocketTextChannel)s.Channel;
-            if (channel.Guild.Id == 259807786651746306) { await RGFXServer(s); } // RGFX Channel ID: 521005903034712076
-            var user = channel.Guild.GetUser(s.Author.Id);
-            var x = ServerList.getServer(channel.Guild);
-            var u = UserList.getUser(user);
-            var services = new ServiceCollection()
+            var msg = s as SocketUserMessage;//                     Convert the message to a socketUSERmessage
+            var channel = (SocketTextChannel)s.Channel;//           Fetches the channel the message was sent in
+            if (channel.Guild.Id == 521005903034712076) { await RGFXServer(s); } // RGFX Channel ID: 521005903034712076
+            var user = channel.Guild.GetUser(s.Author.Id); //       Instantiates the user as a socketguilduser
+            var x = ServerList.getServer(channel.Guild);//          Fetches the server from the server list
+            var u = UserList.getUser(user); //                      Fetches the user from the user list
+            var services = new ServiceCollection() //               Creates Interactive Services
                  .AddSingleton(_client)
                  .AddSingleton<InteractiveService>()
-                 .BuildServiceProvider();
-            var context = new SocketCommandContext(_client, msg);     // Create a new command context.
-            var app = await context.Client.GetApplicationInfoAsync();
-            if (s.Author.IsBot) return;
-            Console.WriteLine($"[{s.Channel}][{s.Author}]: ({s}) @{DateTime.Now.Hour}:{DateTime.Now.Minute} ");
-            if (x.MutedUserIDs.Contains(s.Author.Id)) { await s.DeleteAsync(); Console.WriteLine("User is Muted"); return; }
-            if (x.BlackListedUsers.Contains(s.Author.Id)) { Console.WriteLine("User is Blacklisted"); return; }
-            u.Messages += 1;
-            int argPos = 0;                                           // Check if the message has either a string or mention prefix.
-            if (msg.HasStringPrefix(x.ServerPrefix, ref argPos) ||
+                 .BuildServiceProvider(); //                        Creates Interactive Services
+            var context = new SocketCommandContext(_client, msg);     // Create a new command context
+            var app = await context.Client.GetApplicationInfoAsync(); // Gets application information
+            if (s.Author.IsBot) return; //                            If the Messager is a bot Ignore it
+            Console.WriteLine($"[{s.Channel}][{s.Author}]: ({s}) @{DateTime.Now.Hour}:{DateTime.Now.Minute} "); // Console Logging Messages
+            if (x.MutedUserIDs.Contains(s.Author.Id)) { await s.DeleteAsync(); Console.WriteLine("User is Muted"); return; } // If the user is chat muted delete message
+            if (x.BlackListedUsers.Contains(s.Author.Id)) { Console.WriteLine("User is Blacklisted"); return; } // if the user is blacklisted from using the bot, ignore him
+            u.Messages += 1;//                                        Add 1 message to the users MessageCount
+            int argPos = 0;                                           // Check if the message has either a string or mention prefix
+            if (msg.HasStringPrefix(x.ServerPrefix, ref argPos) || 
                 msg.HasMentionPrefix(_client.CurrentUser, ref argPos))
-            {                                                         // Try and execute a command with the given context.
+            {                                                         // Try and execute a command with the given context
                 var result = await _cmds.ExecuteAsync(context, argPos, services);
-                if (!result.IsSuccess)                                // If execution failed, reply with the error message.
+                if (!result.IsSuccess)                                // If execution failed reply with the error message
                     await app.Owner.SendMessageAsync($"{result.Error} : {result.ErrorReason}");
                 else
                 {
-                    CommandsToday += 1;
+                    CommandsToday += 1;//                            Add 1 command to the command count of the day
                 }
             }
             UserList.SaveUser();

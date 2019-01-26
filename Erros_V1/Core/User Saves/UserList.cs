@@ -60,7 +60,8 @@ namespace Erros
                 Messages = 0,
                 WarningAdmin = new List<ulong> { },
                 WarningReasons = new List<string> { },
-                WarningServer = new List<ulong> { }
+                WarningServer = new List<ulong> { },
+                GifSent = 0
             };
             users.Add(newacc);
             SaveUser();

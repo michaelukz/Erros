@@ -18,7 +18,7 @@ namespace Erros
         public async Task blacklist(SocketGuildUser user = null,[Remainder]string reason = null)
         {
             var x = ServerList.getServer(Context.Guild); // Fetch the server from the server file and save for x (yay math joke.)
-            if (x.ServerLogChannel == "nul")
+            if (x.ServerLogChannel == "avb01")
             {
                 EmbedBuilder e = Error.avb01(Context.Guild);
                 await ReplyAsync("",false,e.Build());

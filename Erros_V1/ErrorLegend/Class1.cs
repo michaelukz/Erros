@@ -254,6 +254,22 @@ namespace Erros.Errors
             };
             return e;
         }
+        /// <summary>
+        /// Log: AVB-16 Log channel SET.
+        /// </summary>
+        public static EmbedBuilder avb16(int amm,SocketGuildUser user,SocketTextChannel chan)
+        {
+            var e = new EmbedBuilder()
+            {
+                Title = ($"I have performed a chat clear."),
+                Description = ($"The clear was performed by {user.Mention} in the [{chan.Mention}] channel."),
+                Timestamp = (DateTime.Now),
+                Color = new Color(142, 5, 5),
+                ThumbnailUrl = ("https://media2.giphy.com/media/xUPGcimWgSiwEVrAvS/giphy.gif?cid=3640f6095c292c8b436d363451266f4e")
+            };
+            e.AddField("Messages Cleared:", $"{amm}", false);
+            return e;
+        }
     }
     public class Error : ModuleBase<SocketCommandContext>
     {
@@ -423,6 +439,21 @@ namespace Erros.Errors
             {
                 Title = ($"No Time / Interval set"),
                 Description = ($"Please specify a time interval (in minutes)."),
+                Timestamp = (DateTime.Now),
+                Color = new Color(142, 5, 5),
+                ThumbnailUrl = ("http://www.free-icons-download.net/images/red-error-flag-icon-41893.png")
+            };
+            return e;
+        }
+        /// <summary>
+        /// Error: AVB-12 Specify numerical ammount
+        /// </summary>
+        public static EmbedBuilder avb12()
+        {
+            var e = new EmbedBuilder()
+            {
+                Title = ($"No ammount set"),
+                Description = ($"Please specify an ammount."),
                 Timestamp = (DateTime.Now),
                 Color = new Color(142, 5, 5),
                 ThumbnailUrl = ("http://www.free-icons-download.net/images/red-error-flag-icon-41893.png")

@@ -32,5 +32,7 @@ namespace Erros
         public List<ulong> TimeoutUsersID { get; set; } // Users who are currently 'Timed Out' Unique ID
         public List<ulong> TimeoutLength { get; set; } // The corresponding length of time to 'Time Out' a user (In Minutes)
         public List<string> TimeoutReason { get; set; } // The corresponding reason for a 'Time Out'
+        public List<ulong> PruneUserIDs { get; set; } // Any USERS with access to the prune/purge command
+        public List<ulong> PruneRoleIDs { get; set; } // Any ROLES with access to the prune/purge command
     }
 }

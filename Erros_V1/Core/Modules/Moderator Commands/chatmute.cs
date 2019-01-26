@@ -46,7 +46,7 @@ namespace Erros
             }
             else
             {
-                if (x.ServerLogChannel == "nul")
+                if (x.ServerLogChannel == "avb01")
                 {
                     var e = Error.avb01(Context.Guild);
                     await ReplyAsync("", false, e.Build());
