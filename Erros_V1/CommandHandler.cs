@@ -35,6 +35,42 @@ namespace HandleCommands
             SocketSelfUser user = _client.CurrentUser;
             _client.Ready += ClientReady;
             _client.UserJoined += UserJoinedGuild;
+            _client.JoinedGuild += FetchUsers;
+            _client.UserVoiceStateUpdated += UserVoiceChannelState;
+        }
+
+        private async Task UserVoiceChannelState(SocketUser user, SocketVoiceState old, SocketVoiceState newv)
+        {
+            var x = ServerList.getServer(old.VoiceChannel.Guild);
+            Predicate<ulong> pred = (ulong p) => { return p == old.VoiceChannel.Id; };
+            var l = x.TeamVCs.FindIndex(pred);
+            var vcOwner = x.TeamVCOwnerID.ElementAt(l);
+
+            if (x.TeamVCs.Contains(old.VoiceChannel.Id))
+            {
+                if (user.Id == vcOwner)
+                {
+                    var chan = old.VoiceChannel;
+                    await chan.DeleteAsync();
+                    await user.SendMessageAsync("You left the voice channel you where the owner of, so I have deleted it.");
+                    x.TeamVCs.RemoveAt(l);
+                    x.TeamVCOwnerID.RemoveAt(l);
+                }
+            }
+            ServerList.SaveServer();
+        }
+
+        private async Task FetchUsers(SocketGuild arg)
+        {
+            var x = ServerList.getServer(arg); // Add the Server to the server list if not already there.
+            var users =  arg.Users; // Fetch all the users in the server and store in the 'users' variable.
+            foreach (SocketGuildUser user in users) // Create a loop running through all users of the server, sets current to 'user'
+            {
+                var l = UserList.getUser(user); // Add the user to the user list if not already there.
+                UserList.SaveUser(); // Save the userlist.
+            }
+            ServerList.SaveServer(); // Save the serverlist.
+            Console.WriteLine($"Connected to new server [{arg.Name}] and added all users to userlist.");
         }
 
         private async Task UserJoinedGuild(SocketGuildUser user)

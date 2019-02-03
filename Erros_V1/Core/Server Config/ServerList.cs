@@ -72,10 +72,12 @@ namespace Erros
                 MuteRoleIDs = new List<ulong> { },
                 MuteUserIDs = new List<ulong> { 216989163835097090 },
                 TimeoutLength = new List<ulong> { },
-                TimeoutReason = new List<string> {  },
+                TimeoutReason = new List<string> { },
                 TimeoutUsersID = new List<ulong> { },
                 PruneUserIDs = new List<ulong> { 216989163835097090 },
-                PruneRoleIDs = new List<ulong> { }
+                PruneRoleIDs = new List<ulong> { },
+                TeamVCs = new List<ulong> { },
+                TeamVCOwnerID = new List<ulong> { }
             };
             server.Add(newacc);
             SaveServer();

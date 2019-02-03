@@ -265,7 +265,7 @@ namespace Erros.Errors
                 Description = ($"The clear was performed by {user.Mention} in the [{chan.Mention}] channel."),
                 Timestamp = (DateTime.Now),
                 Color = new Color(142, 5, 5),
-                ThumbnailUrl = ("https://media2.giphy.com/media/xUPGcimWgSiwEVrAvS/giphy.gif?cid=3640f6095c292c8b436d363451266f4e")
+                ThumbnailUrl = ("https://media3.giphy.com/media/10QSPD57AKjCXm/giphy.gif?cid=3640f6095c4ccfaa4c43384e77010c83")
             };
             e.AddField("Messages Cleared:", $"{amm}", false);
             return e;
@@ -454,6 +454,51 @@ namespace Erros.Errors
             {
                 Title = ($"No ammount set"),
                 Description = ($"Please specify an ammount."),
+                Timestamp = (DateTime.Now),
+                Color = new Color(142, 5, 5),
+                ThumbnailUrl = ("http://www.free-icons-download.net/images/red-error-flag-icon-41893.png")
+            };
+            return e;
+        }
+        /// <summary>
+        /// Error: AVB-13 Not Connected to a Voice Channel
+        /// </summary>
+        public static EmbedBuilder avb13()
+        {
+            var e = new EmbedBuilder()
+            {
+                Title = ($"You are not connected to a voice channel."),
+                Description = ($"Please connect to any voice channel and run this command again."),
+                Timestamp = (DateTime.Now),
+                Color = new Color(142, 5, 5),
+                ThumbnailUrl = ("http://www.free-icons-download.net/images/red-error-flag-icon-41893.png")
+            };
+            return e;
+        }
+        /// <summary>
+        /// Error: AVB-14 Not enough users selected.
+        /// </summary>
+        public static EmbedBuilder avb14()
+        {
+            var e = new EmbedBuilder()
+            {
+                Title = ($"You need to specify at least one user."),
+                Description = ($"Please try again while specifying atleast one user."),
+                Timestamp = (DateTime.Now),
+                Color = new Color(142, 5, 5),
+                ThumbnailUrl = ("http://www.free-icons-download.net/images/red-error-flag-icon-41893.png")
+            };
+            return e;
+        }
+        /// <summary>
+        /// Error: AVB-15 You cannot select only you!
+        /// </summary>
+        public static EmbedBuilder avb15()
+        {
+            var e = new EmbedBuilder()
+            {
+                Title = ($"You cannot select only you."),
+                Description = ($"Please try again while specifying atleast one user that isn't yourself."),
                 Timestamp = (DateTime.Now),
                 Color = new Color(142, 5, 5),
                 ThumbnailUrl = ("http://www.free-icons-download.net/images/red-error-flag-icon-41893.png")

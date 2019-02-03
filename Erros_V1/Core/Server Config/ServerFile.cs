@@ -34,5 +34,7 @@ namespace Erros
         public List<string> TimeoutReason { get; set; } // The corresponding reason for a 'Time Out'
         public List<ulong> PruneUserIDs { get; set; } // Any USERS with access to the prune/purge command
         public List<ulong> PruneRoleIDs { get; set; } // Any ROLES with access to the prune/purge command
+        public List<ulong> TeamVCs { get; set; } // Any 'Team' Voice Channels currently setup for Cross-play
+        public List<ulong> TeamVCOwnerID { get; set; } // The 'Team' Voice Channel Owner, If they leave, the voice channel is deleted.
     }
 }
