@@ -61,7 +61,10 @@ namespace Erros
                 WarningAdmin = new List<ulong> { },
                 WarningReasons = new List<string> { },
                 WarningServer = new List<ulong> { },
-                GifSent = 0
+                GifSent = 0,
+                Level = 1,
+                XP = 0,
+                Prestige = 0
             };
             users.Add(newacc);
             SaveUser();

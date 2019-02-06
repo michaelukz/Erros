@@ -20,5 +20,9 @@ namespace Erros
         public List<ulong> WarningAdmin { get; set; }
         public List<string> WarningReasons { get; set; }
         public ulong GifSent { get; set; }
+        public DateTime LastSpin { get; set; }
+        public int XP { get; set; }
+        public uint Level { get; set; }
+        public uint Prestige { get; set; }
     }
 }

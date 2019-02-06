@@ -270,6 +270,24 @@ namespace Erros.Errors
             e.AddField("Messages Cleared:", $"{amm}", false);
             return e;
         }
+        /// <summary>
+        /// Log: AVB-17 User needs (X) Experience
+        /// </summary>
+        public static EmbedBuilder avb17(int xpneed, int xpcurrent, uint level, SocketGuildUser user)
+        {
+            var e = new EmbedBuilder()
+            {
+                Title = ($"{user.Username} XP Status"),
+                Description = ($"You are so close to reaching the next level! {user.Mention}"),
+                Timestamp = (DateTime.Now),
+                Color = new Color(142, 5, 5),
+                ThumbnailUrl = ("https://media0.giphy.com/media/9rnCD3VWg0bbvQe4Rl/giphy.gif?cid=3640f6095c5842f577706d4b3294eaa2")
+            };
+            e.AddField("Current XP:", $"{xpcurrent}", true);
+            e.AddField("Current Level:", $"{level}", true);
+            e.AddField("Experience Required for next level:", $"{xpneed}", false);
+            return e;
+        }
     }
     public class Error : ModuleBase<SocketCommandContext>
     {
@@ -476,7 +494,7 @@ namespace Erros.Errors
             return e;
         }
         /// <summary>
-        /// Error: AVB-14 Not enough users selected.
+        /// Error: AVB-14 Not enough users selected
         /// </summary>
         public static EmbedBuilder avb14()
         {
@@ -491,7 +509,7 @@ namespace Erros.Errors
             return e;
         }
         /// <summary>
-        /// Error: AVB-15 You cannot select only you!
+        /// Error: AVB-15 You cannot select only you
         /// </summary>
         public static EmbedBuilder avb15()
         {
@@ -499,6 +517,36 @@ namespace Erros.Errors
             {
                 Title = ($"You cannot select only you."),
                 Description = ($"Please try again while specifying atleast one user that isn't yourself."),
+                Timestamp = (DateTime.Now),
+                Color = new Color(142, 5, 5),
+                ThumbnailUrl = ("http://www.free-icons-download.net/images/red-error-flag-icon-41893.png")
+            };
+            return e;
+        }
+        /// <summary>
+        /// Error: AVB-16 You have already used your daily spin on this server
+        /// </summary>
+        public static EmbedBuilder avb16()
+        {
+            var e = new EmbedBuilder()
+            {
+                Title = ($"It seems you have already used your daily spin on this server."),
+                Description = ($"Try again tomorrow!"),
+                Timestamp = (DateTime.Now),
+                Color = new Color(142, 5, 5),
+                ThumbnailUrl = ("http://www.free-icons-download.net/images/red-error-flag-icon-41893.png")
+            };
+            return e;
+        }
+        /// <summary>
+        /// Error: AVB-17 You cannot select more than x users
+        /// </summary>
+        public static EmbedBuilder avb17(uint amount)
+        {
+            var e = new EmbedBuilder()
+            {
+                Title = ($"Too many users selected."),
+                Description = ($"You cannot have more than {amount} selected!"),
                 Timestamp = (DateTime.Now),
                 Color = new Color(142, 5, 5),
                 ThumbnailUrl = ("http://www.free-icons-download.net/images/red-error-flag-icon-41893.png")
